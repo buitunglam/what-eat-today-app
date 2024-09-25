@@ -7,7 +7,7 @@ const page = () => {
   return (
     <div className="bg-customBg border-red-100">
       <div className="flex justify-center flex-col items-center text-center">
-        <LotteryDom />
+        <LotteryDom /> 
       </div>
     </div>
   );
