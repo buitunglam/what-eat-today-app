@@ -1,5 +1,5 @@
 /* Remove if fonts are not used */
-@import '~@fontsource/inter/100.css';
+/* @import '~@fontsource/inter/100.css';
 @import '~@fontsource/inter/200.css';
 @import '~@fontsource/inter/300.css';
 @import '~@fontsource/inter/400.css';
@@ -11,7 +11,7 @@
 @import '~@fontsource/roboto-mono/300.css';
 @import '~@fontsource/roboto-mono/400.css';
 @import '~@fontsource/plus-jakarta-sans/600.css';
-@import '~@fontsource/plus-jakarta-sans/700.css';
+@import '~@fontsource/plus-jakarta-sans/700.css'; */
 
 @tailwind base;
 @tailwind components;
@@ -94,8 +94,22 @@
 
 html {
   height: 100%;
+  font-family: var(--font-roboto);
 }
 
 body {
   height: 100%;
+  font-family: var(--font-roboto);
+}
+
+.roboto {
+  font-family: var(--font-roboto);
+}
+
+.permanent_marker {
+  font-family: var(--font-permanent_marker);
+}
+
+.fredoka {
+  font-family: var(--font-fredoka);
 }

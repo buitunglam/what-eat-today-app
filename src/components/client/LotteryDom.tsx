@@ -2,6 +2,7 @@
 
 import React, { Fragment, useRef, useState } from "react";
 import { LuckyWheel } from "@lucky-canvas/react";
+import ResultWheelLucky from "./ResultWheelLucky";
 type PageProps = {};
 const LotteryDom: React.FC<PageProps> = () => {
   const [timeDuration, setTimeDuration] = useState(10);
@@ -97,59 +98,42 @@ const LotteryDom: React.FC<PageProps> = () => {
     },
   });
   return (
-    <div>
-      <h2>{!item ? "Quay nào..." : `Chúc mừng bạn đã trúng: ${item}`}</h2>
-      <LuckyWheel
-        ref={myLuckyRef}
-        width="500px"
-        height="500px"
-        blocks={dataSource.blocks}
-        prizes={dataSource.prizes}
-        buttons={dataSource.buttons}
-        defaultStyle={dataSource.defaultStyle}
-        onStart={() => {
-          setItem("");
-          console.log("ref on start ----", myLuckyRef)
-          if (!myLuckyRef) return;
-          console.log("reun 0-----")
-          //@ts-ignore
-          myLuckyRef?.current?.play();
-          setTimeout(() => {
-            console.log("time out----")
-            let indexPrize = (Math.random() * 14) >> 0;
-            while (indexPrize === 0 || indexPrize === 3 || indexPrize === 4) {
-              indexPrize = (Math.random() * 14) >> 0;
-            }
+    <>
+      {/* <h2>{!item ? "Quay nào..." : `Chúc mừng bạn đã trúng: ${item}`}</h2> */}
+      <div className="flex justify-between items-center p-[20px]">
+        <LuckyWheel
+          ref={myLuckyRef}
+          width="500px"
+          height="500px"
+          blocks={dataSource.blocks}
+          prizes={dataSource.prizes}
+          buttons={dataSource.buttons}
+          defaultStyle={dataSource.defaultStyle}
+          onStart={() => {
+            setItem("");
+            console.log("ref on start ----", myLuckyRef);
+            if (!myLuckyRef) return;
+            console.log("reun 0-----");
             //@ts-ignore
-            myLuckyRef?.current?.stop(indexPrize);
-          }, timeDuration);
-        }}
-        onEnd={(prize) => {
-          console.log(prize);
-          setItem(prize.title as string);
-        }}
-      />
-      {/* <LuckyWheel
-        ref={myLuckyRef}
-        width="500px"
-        height="500px"
-        blocks={dataSource.blocks}
-        prizes={dataSource.prizes}
-        buttons={dataSource.buttons}
-        onStart={() => {
-          //@ts-ignore
-          myLuckyRef?.current?.play();
-          setTimeout(() => {
-            const index = (Math.random() * 6) >> 0;
-            //@ts-ignore
-            myLuckyRef?.current?.stop(index);
-          }, 2500);
-        }}
-        onEnd={(prize) => {
-          alert("恭喜你抽到 " + prize.fonts[0].text + " 号奖品");
-        }}
-      /> */}
-    </div>
+            myLuckyRef?.current?.play();
+            setTimeout(() => {
+              console.log("time out----");
+              let indexPrize = (Math.random() * 14) >> 0;
+              while (indexPrize === 0 || indexPrize === 3 || indexPrize === 4) {
+                indexPrize = (Math.random() * 14) >> 0;
+              }
+              //@ts-ignore
+              myLuckyRef?.current?.stop(indexPrize);
+            }, timeDuration);
+          }}
+          onEnd={(prize) => {
+            console.log(prize);
+            setItem(prize.title as string);
+          }}
+        />
+        <ResultWheelLucky />
+      </div>
+    </>
   );
 };
 

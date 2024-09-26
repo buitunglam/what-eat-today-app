@@ -6,16 +6,17 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import { AuthGuard } from "@/components/auth/auth-guard";
 import { MainNav } from "@/components/dashboard/layout/main-nav";
 import { SideNav } from "@/components/dashboard/layout/side-nav";
+import { MainNavClient } from "@/components/dashboard/layout/main-nav-client";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: LayoutProps): React.JSX.Element {
+export default function Layout({ children }: LayoutProps) {
   return (
     // <AuthGuard>
     <>
-      <GlobalStyles
+      {/* <GlobalStyles
         styles={{
           body: {
             "--MainNav-height": "56px",
@@ -26,7 +27,7 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
             "--MobileNav-zIndex": 1100,
           },
         }}
-      />
+      /> */}
       <Box
         sx={{
           bgcolor: "var(--mui-palette-background-default)",
@@ -43,7 +44,7 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
             flexDirection: "column",
           }}
         >
-          {/* <MainNav /> */}
+          <MainNavClient />
           <main>
             <Container maxWidth="xl">{children}</Container>
           </main>
