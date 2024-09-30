@@ -37,6 +37,7 @@ export default function Layout({ children }: LayoutProps) {
           flexDirection: "column",
           position: "relative",
           minHeight: "100%",
+          overflow: "hidden",
         }}
       >
         <Box
@@ -44,10 +45,11 @@ export default function Layout({ children }: LayoutProps) {
             display: "flex",
             flex: "auto",
             flexDirection: "column",
+            overflow: "hidden",
           }}
         >
           <MainNavClient />
-          <main>
+          <main className="overflow-hidden">
             <Container maxWidth="xl">{children}</Container>
           </main>
         </Box>

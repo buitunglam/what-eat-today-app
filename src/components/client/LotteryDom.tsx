@@ -50,7 +50,9 @@ const LotteryDom: React.FC<PageProps> = () => {
       {
         title: "Thịt bò xào (nấm hoặc su su hoặc ớt chuông)",
         background: "#f9e3bb",
-        fonts: [{ text: "Thịt bò xào (nấm hoặc su su hoặc ớt chuông)", top: "18%" }],
+        fonts: [
+          { text: "Thịt bò xào (nấm hoặc su su hoặc ớt chuông)", top: "18%" },
+        ],
       },
       {
         title: "Cá rán",
@@ -101,11 +103,11 @@ const LotteryDom: React.FC<PageProps> = () => {
   return (
     <>
       {/* <h2>{!item ? "Quay nào..." : `Chúc mừng bạn đã trúng: ${item}`}</h2> */}
-      <div className="flex justify-between items-center p-[20px]">
+      <div className="flex justify-around items-center p-[20px] max-md:p-0 max-md:flex-col">
         <LuckyWheel
           ref={myLuckyRef}
-          width="500px"
-          height="500px"
+          width="400px"
+          height="400px"
           blocks={dataSource.blocks}
           prizes={dataSource.prizes}
           buttons={dataSource.buttons}
@@ -129,7 +131,7 @@ const LotteryDom: React.FC<PageProps> = () => {
             setItem(prize.title as string);
           }}
         />
-        <ResultWheelLucky item={item}/>
+        <ResultWheelLucky item={item} />
       </div>
     </>
   );

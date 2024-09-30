@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="bg-white border-t-[1px] border-solid border-[#e5e7eb] mt-[50px]  pb-[100px] flex justify-between item-center">
+    <div className="bg-white border-t-[1px] border-solid border-[#e5e7eb] mt-[50px]  pb-[100px] flex max-md:flex-col justify-between item-center">
       <div className="flex items-center gap-[50px] pt-[50px]">
         <div className="list-none">
           <h3 className="mb-[20px] font-bold">Resource</h3>
@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="cursor-pointer flex items-center justify-center gap-[10px]">
+      <div className="cursor-pointer flex max-md:justify-start max-md:mt-6 items-center justify-center gap-[10px]">
         <img
           src="/assets/languages.png"
           className="w-[25px] h-[25px]"

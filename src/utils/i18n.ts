@@ -2,16 +2,16 @@ import { createInstance } from "i18next";
 import { initReactI18next } from "react-i18next/initReactI18next";
 import resourcesToBackend from "i18next-resources-to-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
-import i18nConfig from "../../i18n.config";
+import i18nConfig from "../i18n.config";
 
 
 export default async function initTranslations(locale: any, namespaces: any) {
+  console.log("initTranslations -----", locale)
   const i18nInstance = createInstance();
   const DETECTION_OPTIONS = {
     order: ['localStorage', 'navigator'],
     caches: ['localStorage']
   };
-
   await i18nInstance
     .use(LanguageDetector)
     .use(initReactI18next)
@@ -21,9 +21,8 @@ export default async function initTranslations(locale: any, namespaces: any) {
       })
     )
     .init({
-      lng: locale,
-      // fallbackLng: i18nConfig.defaultLocale,
-      fallbackLng: "ja",
+      lng: locale || 'vn',
+      fallbackLng: i18nConfig.defaultLocale,
       detection: DETECTION_OPTIONS,
       supportedLngs: i18nConfig.locales,
       defaultNS: namespaces[0],
