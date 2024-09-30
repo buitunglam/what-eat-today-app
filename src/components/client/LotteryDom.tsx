@@ -103,7 +103,7 @@ const LotteryDom: React.FC<PageProps> = () => {
   return (
     <>
       {/* <h2>{!item ? "Quay nào..." : `Chúc mừng bạn đã trúng: ${item}`}</h2> */}
-      <div className="flex justify-around items-center p-[20px] max-md:p-0 max-md:flex-col">
+      <div className="flex justify-around items-center p-[20px] max-md:pt-[20px] max-md:p-0 max-md:flex-col">
         <LuckyWheel
           ref={myLuckyRef}
           width="400px"
