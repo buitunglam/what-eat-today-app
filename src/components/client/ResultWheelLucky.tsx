@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import DialogSetFood from "./DialogSetFood";
 
 const ResultWheelLucky = ({ item }) => {
-  console.log("item ---", item);
   const [openDialog, setOpenDialog] = useState(false);
   const openDialogSetFood = () => {
     setOpenDialog(true);

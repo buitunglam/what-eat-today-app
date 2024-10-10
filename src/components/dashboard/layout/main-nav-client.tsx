@@ -25,10 +25,29 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-const pages = ["Danh Sách Món Ăn", "Liên Hệ", "Tin Tức"];
+import { useRouter } from "next/navigation";
+const pages = [
+  {
+    id: 1,
+    title: "Danh Sách Món Ăn",
+  },
+  {
+    id: 2,
+    title: "Tạo món ăn",
+  },
+  {
+    id: 3,
+    title: "Liên Hệ",
+  },
+  {
+    id: 4,
+    title: "Tin Tức",
+  },
+];
 
 export function MainNavClient() {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -47,8 +66,18 @@ export function MainNavClient() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleClickItem = (page: { id: number; title: string }) => {
+    console.log("click ----", page);
+    switch (page.id) {
+      case 1:
+        return router.push("/list_food");
+      case 2:
+        return router.push("/list_food");
+      case 3:
+        return router.push("/contact");
+      default:
+        return router.push("/news");
+    }
   };
 
   return (
@@ -107,7 +136,10 @@ export function MainNavClient() {
                   sx={{ display: { xs: "block", md: "none" } }}
                 >
                   {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <MenuItem
+                      key={page.id}
+                      onClick={() => handleClickItem(page)}
+                    >
                       <Typography
                         sx={{
                           textAlign: "center",
@@ -117,7 +149,7 @@ export function MainNavClient() {
                           },
                         }}
                       >
-                        {page}
+                        {page.title}
                       </Typography>
                     </MenuItem>
                   ))}
@@ -127,8 +159,8 @@ export function MainNavClient() {
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages.map((page) => (
                   <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
+                    key={page.id}
+                    onClick={() => handleClickItem(page)}
                     sx={{
                       my: 2,
                       color: "#454649",
@@ -138,7 +170,7 @@ export function MainNavClient() {
                       },
                     }}
                   >
-                    {page}
+                    {page.title}
                   </Button>
                 ))}
               </Box>
