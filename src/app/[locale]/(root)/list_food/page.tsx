@@ -2,46 +2,47 @@
 
 import ListFood from "@/components/client/ListFood";
 import LotteryDom from "@/components/client/LotteryDom";
-import * as React from 'react';
-import RouterLink from 'next/link';
-import { useRouter } from 'next/navigation';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import InputLabel from '@mui/material/InputLabel';
-import Link from '@mui/material/Link';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { Controller, useForm } from 'react-hook-form';
-import { z as zod } from 'zod';
+import * as React from "react";
+import RouterLink from "next/link";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import Link from "@mui/material/Link";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { Controller, useForm } from "react-hook-form";
+import { z as zod } from "zod";
+import { Trash } from "@phosphor-icons/react/dist/ssr";
+import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
+import { Box } from "@mui/system";
 
-import { paths } from '@/paths';
-import { authClient } from '@/lib/auth/client';
-import { useUser } from '@/hooks/use-user';
+import { paths } from "@/paths";
+import { authClient } from "@/lib/auth/client";
+import { useUser } from "@/hooks/use-user";
+
+import { v4 as uuidv4 } from "uuid";
 
 const schema = zod.object({
-  firstName: zod.string().min(1, { message: 'First name is required' }),
-  lastName: zod.string().min(1, { message: 'Last name is required' }),
-  email: zod.string().min(1, { message: 'Email is required' }).email(),
-  password: zod.string().min(6, { message: 'Password should be at least 6 characters' }),
-  terms: zod.boolean().refine((value) => value, 'You must accept the terms and conditions'),
+  name: zod.string().min(1, { message: "First name is required" }),
+  recipes: zod.string().min(1, { message: "Last name is required" }),
+  image: zod.string().min(1, { message: "Email is required" }).email(),
 });
 
 type Values = zod.infer<typeof schema>;
 
-const defaultValues = { firstName: '', lastName: '', email: '', password: '', terms: false } satisfies Values;
+const defaultValues = { name: "", recipes: "", image: "" } satisfies Values;
 
 const page = () => {
   const router = useRouter();
-
-  const { checkSession } = useUser();
-
   const [isPending, setIsPending] = React.useState<boolean>(false);
+  const [files, setFiles] = React.useState<any>(null);
 
   const {
     control,
@@ -50,133 +51,136 @@ const page = () => {
     formState: { errors },
   } = useForm<Values>({ defaultValues, resolver: zodResolver(schema) });
 
+  // function
+
   const onSubmit = React.useCallback(
     async (values: Values): Promise<void> => {
       setIsPending(true);
 
-      const { error } = await authClient.signUp(values);
-
-      if (error) {
-        setError("root", { type: "server", message: error });
-        setIsPending(false);
-        return;
-      }
-
-      // Refresh the auth state
-      await checkSession?.();
-
-      // UserProvider, for this case, will not refresh the router
       // After refresh, GuestGuard will handle the redirect
       router.refresh();
     },
-    [checkSession, router, setError]
+    [router, setError]
   );
+
+  const handleChange = (event: any) => {
+    event.preventDefault();
+
+    const listFiles = Object.values(event.target.files);
+    const listHaveId = listFiles.map((file: any) => {
+      return { contentFile: file, id: uuidv4() };
+    });
+    setFiles(listHaveId);
+  };
+
+  const handleRemoveFile = (file: any) => {
+    const listFileOld = [...files];
+    const newList = listFileOld.filter((item) => item.id != file.id);
+
+    if (newList.length == 0) {
+      setFiles(null);
+      return;
+    }
+    setFiles(newList);
+  };
 
   return (
     <div className="bg-white mt-5 rounded-xl overflow-hidden">
-      <Stack spacing={3}>
+      <Stack spacing={3} className="w-[70%] max-md:w-[100%] m-auto">
         <Stack spacing={1}>
-          <Typography variant="h4">Sign up</Typography>
+          <Typography variant="h4">Create your own food</Typography>
           <Typography color="text.secondary" variant="body2">
-            Already have an account?{" "}
-            <Link
-              component={RouterLink}
-              href={paths.auth.signIn}
-              underline="hover"
-              variant="subtitle2"
-            >
-              Sign in
-            </Link>
+            {`(Remember to add the recipe so everyone can cook your dish! ^^)`}
+            {/* Nhớ thêm công thức vào để ai cũng có thể nấu món của bạn nhé */}
           </Typography>
         </Stack>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
             <Controller
               control={control}
-              name="firstName"
+              name="name"
               render={({ field }) => (
-                <FormControl error={Boolean(errors.firstName)}>
-                  <InputLabel>First name</InputLabel>
-                  <OutlinedInput {...field} label="First name" />
-                  {errors.firstName ? (
-                    <FormHelperText>{errors.firstName.message}</FormHelperText>
+                <FormControl error={Boolean(errors.name)}>
+                  <InputLabel>Name Food</InputLabel>
+                  <OutlinedInput {...field} label="Name Food" />
+                  {errors.name ? (
+                    <FormHelperText>{errors.name.message}</FormHelperText>
                   ) : null}
                 </FormControl>
               )}
             />
             <Controller
               control={control}
-              name="lastName"
+              name="recipes"
               render={({ field }) => (
-                <FormControl error={Boolean(errors.firstName)}>
-                  <InputLabel>Last name</InputLabel>
-                  <OutlinedInput {...field} label="Last name" />
-                  {errors.firstName ? (
-                    <FormHelperText>{errors.firstName.message}</FormHelperText>
-                  ) : null}
-                </FormControl>
-              )}
-            />
-            <Controller
-              control={control}
-              name="email"
-              render={({ field }) => (
-                <FormControl error={Boolean(errors.email)}>
-                  <InputLabel>Email address</InputLabel>
+                <FormControl error={Boolean(errors.recipes)}>
+                  <InputLabel>Recipes</InputLabel>
                   <OutlinedInput
                     {...field}
-                    label="Email address"
-                    type="email"
+                    label="Recipes"
+                    multiline
+                    rows={14}
                   />
-                  {errors.email ? (
-                    <FormHelperText>{errors.email.message}</FormHelperText>
+                  {errors.recipes ? (
+                    <FormHelperText>{errors.recipes.message}</FormHelperText>
                   ) : null}
                 </FormControl>
               )}
             />
-            <Controller
-              control={control}
-              name="password"
-              render={({ field }) => (
-                <FormControl error={Boolean(errors.password)}>
-                  <InputLabel>Password</InputLabel>
-                  <OutlinedInput {...field} label="Password" type="password" />
-                  {errors.password ? (
-                    <FormHelperText>{errors.password.message}</FormHelperText>
-                  ) : null}
-                </FormControl>
-              )}
-            />
-            <Controller
-              control={control}
-              name="terms"
-              render={({ field }) => (
-                <div>
-                  <FormControlLabel
-                    control={<Checkbox {...field} />}
-                    label={
-                      <React.Fragment>
-                        I have read the <Link>terms and conditions</Link>
-                      </React.Fragment>
-                    }
-                  />
-                  {errors.terms ? (
-                    <FormHelperText error>
-                      {errors.terms.message}
-                    </FormHelperText>
-                  ) : null}
-                </div>
-              )}
-            />
+
+            <Box className="flex items-center flex-wrap gap-3 mb-[20px] w-full">
+              <p className="mb-1.5 mr-[15px] text-zinc-500 font-medium">
+                File(*)
+              </p>
+
+              <Box className="flex flex-1 flex-wrap items-center gap-4 ">
+                {files ? (
+                  files.map((file: any, index: number) => (
+                    <Box
+                      key={index}
+                      className={
+                        "flex flex-col gap-[5px] w-[31%] items-end justify-center rounded-[10px] p-[5px] drop-shadow-md"
+                      }
+                    >
+                      <Trash
+                        className="text-[20px] cursor-pointer"
+                        onClick={() => handleRemoveFile(file)}
+                      />
+                      <img
+                        src={`${window.URL.createObjectURL(file.contentFile)}`}
+                        className="rounded-[10px]"
+                      />
+                    </Box>
+                  ))
+                ) : (
+                  <div className="flex items-center cursor-pointer justify-center w-[70px] h-[70px] border border-gray-200 bg-white shadow-md p-2 outline-none rounded-[7px]">
+                    <label htmlFor="upload-file">
+                      <PlusIcon
+                        fontSize="var(--icon-fontSize-md)"
+                        className="size-5"
+                      />
+                    </label>
+                    <input
+                      type="file"
+                      className="absolute cursor-pointer border-none opacity-0 -z-1"
+                      multiple
+                      name="files[]"
+                      id="upload-file"
+                      onChange={handleChange}
+                    />
+                  </div>
+                )}
+              </Box>
+            </Box>
+
             {errors.root ? (
               <Alert color="error">{errors.root.message}</Alert>
             ) : null}
             <Button disabled={isPending} type="submit" variant="contained">
-              Sign up
+              Create Food
             </Button>
           </Stack>
         </form>
-        <Alert color="warning">Created users are not persisted</Alert>
       </Stack>
     </div>
   );

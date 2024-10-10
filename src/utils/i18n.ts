@@ -6,7 +6,6 @@ import i18nConfig from "../i18n.config";
 
 
 export default async function initTranslations(locale: any, namespaces: any) {
-  console.log("initTranslations -----", locale)
   const i18nInstance = createInstance();
   const DETECTION_OPTIONS = {
     order: ['localStorage', 'navigator'],
