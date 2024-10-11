@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/core/theme-provider/theme-provider";
 import { fredoka, roboto } from "@/utils/fonts";
 import initTranslations from "@/utils/i18n";
 import TranslationsProvider from "@/contexts/translation.provider";
+import NextTopLoader from "nextjs-toploader";
 
 export const viewport = {
   width: "device-width",
@@ -24,7 +25,7 @@ export default async function RootLayout({
   children,
   params: { locale },
 }: LayoutProps) {
-  console.log("locale --", locale)
+  console.log("locale --", locale);
   const { options } = await initTranslations(locale == "en" ? locale : "vn", [
     "translation",
   ]);
@@ -32,6 +33,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body suppressHydrationWarning={true} className={`${roboto} ${fredoka}`}>
+        <NextTopLoader color="#7578ff" />
         <TranslationsProvider namespaces={options.ns} locale={locale}>
           <LocalizationProvider>
             <UserProvider>

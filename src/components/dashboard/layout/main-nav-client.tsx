@@ -90,10 +90,15 @@ export function MainNavClient() {
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <img
-                src="/assets/logo.png"
-                className="w-[100px] h-[100px] md:flex hidden"
-              />
+              <Box
+                className="w-[100px] h-[100px] cursor-pointer md:flex hidden"
+                onClick={() => router.push("/")}
+              >
+                <img
+                  src="/assets/logo.png"
+                  className="w-full h-full md:flex hidden"
+                />
+              </Box>
 
               <Box
                 sx={{
@@ -104,10 +109,15 @@ export function MainNavClient() {
                 }}
               >
                 <Box />
-                <img
-                  src="/assets/logo.png"
-                  className="w-[100px] h-[100px]  md:hidden flex self-center"
-                />
+                <Box
+                  className="w-[100px] h-[100px] cursor-pointer md:hidden flex self-center"
+                  onClick={() => router.push("/")}
+                >
+                  <img
+                    src="/assets/logo.png"
+                    className="w-full h-full  md:hidden flex self-center"
+                  />
+                </Box>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
