@@ -1,12 +1,12 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
 import Alert from '@mui/material/Alert';
 
 import { paths } from '@/paths';
 import { logger } from '@/lib/default-logger';
 import { useUser } from '@/hooks/use-user';
+import { useRouter } from '@/hooks/useRouter';
 
 export interface AuthGuardProps {
   children: React.ReactNode;

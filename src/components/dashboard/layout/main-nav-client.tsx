@@ -25,7 +25,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/hooks/useRouter";
+
 const pages = [
   {
     id: 1,
@@ -72,7 +73,7 @@ export function MainNavClient() {
       case 1:
         return router.push("/list_food");
       case 2:
-        return router.push("/list_food");
+        return router.push("/create_food");
       case 3:
         return router.push("/contact");
       default:

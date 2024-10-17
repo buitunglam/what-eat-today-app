@@ -60,8 +60,8 @@ const ListFood = () => {
         </h3>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] h-auto auto-rows-[10px] gap-4 mt-[15px]  ">
-        {images.map((item) => (
-          <Pin item={item} />
+        {images.map((item, index) => (
+          <Pin item={item} key={index} />
         ))}
         {/* <Pin type="medium" />
         <Pin type="large" />

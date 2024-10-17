@@ -13,6 +13,10 @@ const foodSchema = new mongoose.Schema(
     img: {
       type: String,
     },
+    typeImage: {
+      type: String,
+      require: true,
+    },
     userId: {
       type: String,
       require: true,
