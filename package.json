@@ -25,6 +25,7 @@
     "@mui/x-date-pickers": "7.7.1",
     "@phosphor-icons/react": "2.1.6",
     "apexcharts": "3.49.2",
+    "apisauce": "^3.1.0",
     "css-loader": "^7.1.2",
     "dayjs": "1.11.11",
     "file-loader": "^6.2.0",
