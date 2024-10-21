@@ -16,17 +16,18 @@ export const getFoods = async () => {
 
 export const createFood = async () => {
   try {
-    connectToDb();
+    await connectToDb();
     const example = {
       name: "food 1",
       receipt: "receipts 1",
       img: "",
-      typeImage: "small",
+      typeImage: "medium",
       userId: "123456"
     }
+    console.log('example ---', example)
     const food = await Food.create(example);
     console.log('food ---', food)
-    return food;
+    return JSON.stringify(food);
   } catch (error) {
     // console.log("error --", error)
     return { error: "Something went wrong" };

@@ -29,16 +29,17 @@ import { useUser } from "@/hooks/use-user";
 
 import { v4 as uuidv4 } from "uuid";
 import { createFood } from "@/lib/action/food";
+import { createFoodApi } from "@/service/food.api";
 
 const schema = zod.object({
   name: zod.string().min(1, { message: "First name is required" }),
-  recipes: zod.string().min(1, { message: "Last name is required" }),
+  recipe: zod.string().min(1, { message: "Last name is required" }),
   // image: zod.string().min(1, { message: "Email is required" }).email(),
 });
 
 type Values = zod.infer<typeof schema>;
 
-const defaultValues = { name: "", recipes: "" } satisfies Values;
+const defaultValues = { name: "", recipe: "" } satisfies Values;
 
 const page = () => {
   const router = useRouter();
@@ -57,7 +58,16 @@ const page = () => {
   const onSubmit = async (values: Values): Promise<void> => {
     console.log("value ---", values);
     setIsPending(true);
-    const food = await createFood()
+    const data = {
+      name: values.name,
+      receipt: values.recipe,
+      userId: "123531",
+      img: "",
+      typeImage: "small",
+    };
+    // const food = await createFoodApi(data);
+    const food = await createFood();
+    console.log("response client ---", food);
     // After refresh, GuestGuard will handle the redirect
     // router.refresh();
   };
@@ -110,9 +120,9 @@ const page = () => {
             />
             <Controller
               control={control}
-              name="recipes"
+              name="recipe"
               render={({ field }) => (
-                <FormControl error={Boolean(errors.recipes)}>
+                <FormControl error={Boolean(errors.recipe)}>
                   <InputLabel>Recipes</InputLabel>
                   <OutlinedInput
                     {...field}
@@ -120,8 +130,8 @@ const page = () => {
                     multiline
                     rows={14}
                   />
-                  {errors.recipes ? (
-                    <FormHelperText>{errors.recipes.message}</FormHelperText>
+                  {errors.recipe ? (
+                    <FormHelperText>{errors.recipe.message}</FormHelperText>
                   ) : null}
                 </FormControl>
               )}

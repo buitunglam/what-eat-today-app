@@ -1,8 +1,8 @@
 import { create } from "apisauce";
 // import * as Constants from "utils/constants";
 
-const api = create({
-  baseURL: "/",
+export const api = create({
+  baseURL: "http://localhost:3000/",
   headers: {
     "Content-Type": "application/json",
     "Accept-Language": "en",
