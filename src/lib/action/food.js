@@ -5,7 +5,7 @@ import { connectToDb } from "../mongodb";
 export const getFoods = async () => {
   try {
     connectToDb();
-    const foods = await Food.find();
+    const foods = await Food.find({});
     console.log('foods ---', foods)
     return foods;
   } catch (error) {
@@ -19,7 +19,7 @@ export const createFood = async () => {
     await connectToDb();
     const example = {
       name: "food 1",
-      receipt: "receipts 1",
+      recipes: "receipts 1",
       img: "",
       typeImage: "medium",
       userId: "123456"

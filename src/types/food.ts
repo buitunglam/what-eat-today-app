@@ -1,7 +1,7 @@
 export interface FoodType {
   name: string;
   userId: string;
-  receipt: string;
+  recipes: string;
   img?: string;
   typeImage: string;
 }

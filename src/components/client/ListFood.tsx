@@ -6,48 +6,75 @@ import Pin from "./Pin";
 const images = [
   {
     id: "1",
-    type: "small",
-    src: "/assets/food1.jpg",
+    typeImage: "small",
+    img: "/assets/food1.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "2",
-    type: "medium",
-    src: "/assets/food2.jpg",
+    typeImage: "medium",
+    img: "/assets/food2.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "3",
-    type: "large",
-    src: "/assets/food3.jpg",
+    typeImage: "large",
+    img: "/assets/food3.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "4",
-    type: "small",
-    src: "/assets/food1.jpg",
+    typeImage: "small",
+    img: "/assets/food1.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "5",
-    type: "medium",
-    src: "/assets/food2.jpg",
+    typeImage: "medium",
+    img: "/assets/food2.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "6",
-    type: "large",
-    src: "/assets/food3.jpg",
+    typeImage: "large",
+    img: "/assets/food3.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "7",
-    type: "small",
-    src: "/assets/food1.jpg",
+    typeImage: "small",
+    img: "/assets/food1.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "8",
-    type: "medium",
-    src: "/assets/food2.jpg",
+    typeImage: "medium",
+    img: "/assets/food2.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
   {
     id: "9",
-    type: "large",
-    src: "/assets/food3.jpg",
+    typeImage: "large",
+    img: "/assets/food3.jpg",
+    name: "Bún đậu",
+    userId: "123456",
+    recipes: "This is recipes"
   },
 ];
 

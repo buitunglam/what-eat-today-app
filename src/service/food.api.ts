@@ -2,11 +2,11 @@ import { api } from "@/service";
 import { FoodType } from "@/types/food";
 
 export const createFoodApi = async (data: FoodType) => {
-  const { name, receipt, userId, img, typeImage } = data;
+  const { name, recipes, userId, img, typeImage } = data;
   try {
     const response = await api.post("/api/food", {
       name,
-      receipt,
+      recipes,
       userId,
       img,
       typeImage,

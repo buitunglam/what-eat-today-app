@@ -6,7 +6,7 @@ const foodSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    receipt: {
+    recipes: {
       type: String,
       require: true,
     },

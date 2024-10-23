@@ -1,4 +1,5 @@
 "use client";
+import { FoodType } from "@/types/food";
 import React from "react";
 
 interface ItemFoodType {
@@ -7,13 +8,14 @@ interface ItemFoodType {
   src: string;
 }
 
-const Pin = ({ item }: { item: ItemFoodType }) => {
-  const { type, src } = item;
+const Pin = ({ item }: { item: FoodType }) => {
+  const { typeImage, img } = item;
+  console.log("item --", item)
   return (
     <div
-      className={`cursor-pointer ${type == "small" ? "row-end-[span_10]" : type == "medium" ? "row-end-[span_16]" : "row-end-[span_20]"} bg-slate-600 rounded-[10px] opacity-80 hover:opacity-100 hover:-translate-y-2 duration-300 ease-in-out shadow-md`}
+      className={`cursor-pointer ${typeImage == "small" ? "row-end-[span_10]" : typeImage == "medium" ? "row-end-[span_16]" : "row-end-[span_20]"} bg-slate-600 rounded-[10px] opacity-80 hover:opacity-100 hover:-translate-y-2 duration-300 ease-in-out shadow-md`}
     >
-      <img src={src} className={"w-full h-full object-cover rounded-[10px]"} />
+      <img src={img} className={"w-full h-full object-cover rounded-[10px]"} />
     </div>
   );
 };
