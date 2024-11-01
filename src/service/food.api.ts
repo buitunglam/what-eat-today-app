@@ -10,7 +10,7 @@ export const createFoodApi = async (data: FoodType) => {
       userId,
       imgs,
       typeImage,
-    });
+    }); 
     return response.data;
   } catch (error) {
     throw new Error(`${error}`);
