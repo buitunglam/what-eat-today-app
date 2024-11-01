@@ -16,10 +16,10 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <AuthGuard>
+    // <AuthGuard>
       <main className="overflow-hidden">
         <Container maxWidth="xl">{children}</Container>
       </main>
-    </AuthGuard>
+    // </AuthGuard>
   );
 }

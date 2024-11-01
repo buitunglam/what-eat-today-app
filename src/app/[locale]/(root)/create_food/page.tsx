@@ -30,6 +30,7 @@ import { useUser } from "@/hooks/use-user";
 import { v4 as uuidv4 } from "uuid";
 import { createFood } from "@/lib/action/food";
 import { createFoodApi } from "@/service/food.api";
+import { Snackbar, SnackbarCloseReason, SnackbarOrigin } from "@mui/material";
 
 const schema = zod.object({
   name: zod.string().min(1, { message: "First name is required" }),
@@ -40,11 +41,20 @@ const schema = zod.object({
 type Values = zod.infer<typeof schema>;
 
 const defaultValues = { name: "", recipe: "" } satisfies Values;
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
 
 const page = () => {
   const router = useRouter();
   const [isPending, setIsPending] = React.useState<boolean>(false);
   const [files, setFiles] = React.useState<any>(null);
+  const [stateNoti, setStateNoti] = React.useState<State>({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = stateNoti;
 
   const {
     control,
@@ -56,20 +66,40 @@ const page = () => {
   // function
 
   const onSubmit = async (values: Values): Promise<void> => {
-    console.log("value ---", values);
-    setIsPending(true);
-    const data = {
-      name: values.name,
-      receipt: values.recipe,
-      userId: "123531",
-      img: "",
-      typeImage: "small",
-    };
-    // const food = await createFoodApi(data);
-    const food = await createFood();
-    console.log("response client ---", food);
-    // After refresh, GuestGuard will handle the redirect
-    // router.refresh();
+    try {
+      console.log("value ---", values);
+      setIsPending(true);
+      // Create a FormData object
+      const formData = new FormData();
+
+      // Append normal fields
+      formData.append("name", values.name);
+      formData.append("userId", "123531");
+      formData.append("typeImage", "small");
+      formData.append("recipes", values.recipe);
+      for (let i = 0; i < files.length; i++) {
+        formData.append("images", files[i].contentFile);
+      }
+
+      console.log("data client ---", files, formData);
+      // const food = await createFoodApi(data);
+
+      const foodResponse = await fetch("/api/food", {
+        method: "POST",
+        body: formData,
+      });
+      console.log("foodResponse client ---", foodResponse);
+      const data = await foodResponse.json();
+      console.log(data);
+      if (data) {
+        showNoti();
+      }
+      // router.refresh();
+    } catch (error) {
+      console.log("error ---", error);
+    } finally {
+      setIsPending(false);
+    }
   };
 
   const handleChange = (event: any) => {
@@ -91,6 +121,14 @@ const page = () => {
       return;
     }
     setFiles(newList);
+  };
+
+  const handleClose = () => {
+    setStateNoti({ ...stateNoti, open: false });
+  };
+
+  const showNoti = () => {
+    setStateNoti({ ...stateNoti, open: true });
   };
 
   return (
@@ -184,12 +222,33 @@ const page = () => {
             <Button disabled={isPending} type="submit" variant="contained">
               Create Food
             </Button>
+            <Button onClick={() => showNoti()} variant="contained">
+              Test noti
+            </Button>
             {errors.root ? (
               <Alert color="error">{errors.root.message}</Alert>
             ) : null}
           </Stack>
         </form>
       </Stack>
+
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        // message="Tạo món ăn thành công!"
+        key={vertical + horizontal}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%", color: "white" }}
+        >
+          Tạo món ăn thành công!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
