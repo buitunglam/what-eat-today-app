@@ -13,7 +13,9 @@ const FoodItem = ({ item }: { item: FoodType }) => {
   console.log("item --", item);
   return (
     <div
-      className={`w-[30%] max-md:w-[50%] cursor-pointer ${typeImage == "small" ? "row-end-[span_10]" : typeImage == "medium" ? "row-end-[span_16]" : "row-end-[span_20]"} hover:opacity-100 hover:-translate-y-2 duration-300 ease-in-out`}
+      className={`w-[30%] max-md:w-[45%] 
+        
+        cursor-pointer ${typeImage == "small" ? "row-end-[span_10]" : typeImage == "medium" ? "row-end-[span_16]" : "row-end-[span_20]"} hover:opacity-100 hover:-translate-y-2 duration-300 ease-in-out`}
     >
       <img
         src={imgs ? imgs[0] : ""}

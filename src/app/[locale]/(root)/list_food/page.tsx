@@ -36,7 +36,7 @@ const page = () => {
           List Foods
         </Typography>
         {/* <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] h-auto auto-rows-[10px] gap-4 mt-[15px]  "> */}
-        <div className="flex items-center gap-5 w-full mt-[30px]">
+        <div className="flex items-center flex-wrap gap-5 w-full mt-[30px]">
           {listFoods && listFoods.length > 0
             ? listFoods.map((item: any, index: any) => (
                 <FoodItem item={item} key={index} />
