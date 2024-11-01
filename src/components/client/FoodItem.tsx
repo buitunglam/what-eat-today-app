@@ -14,7 +14,7 @@ const FoodItem = ({ item }: { item: FoodType }) => {
   return (
     <div
       className={`w-[30%] max-md:w-[45%] 
-        
+        max-sm:w-[100%]
         cursor-pointer ${typeImage == "small" ? "row-end-[span_10]" : typeImage == "medium" ? "row-end-[span_16]" : "row-end-[span_20]"} hover:opacity-100 hover:-translate-y-2 duration-300 ease-in-out`}
     >
       <img
