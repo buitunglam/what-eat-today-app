@@ -6,11 +6,11 @@ import { Food } from "@/lib/model/Food.model";
 import { connectToDb } from "@/lib/mongodb";
 import cloudinary from "@/lib/cloudinary";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 export async function POST(request: Request) {
   try {
