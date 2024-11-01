@@ -11,7 +11,6 @@ export const createFoodApi = async (data: FoodType) => {
       imgs,
       typeImage,
     });
-    console.log("response ---", response);
     return response.data;
   } catch (error) {
     throw new Error(`${error}`);
