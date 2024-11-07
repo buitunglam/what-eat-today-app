@@ -23,61 +23,14 @@ export const getFoods = async () => {
   }
 };
 
-export const createFood = async (data: FormData) => {
+export const getFoodDetails = async (id: string) => {
   try {
-    await connectToDb();
-    const images = data.get("fileImgs");
-
-    console.log("data ---", data);
-    if (images != null) {
-      //@ts-ignore
-      console.log("imges ---", JSON.parse(images));
-    }
-    // const dataFile = JSON.parse(data?.fileImgs);
-
-    // // const example = {
-    // //   name: "food 1",
-    // //   recipes: "receipts 1",
-    // //   img: "",
-    // //   typeImage: "medium",
-    // //   userId: "123456",
-    // // };
-    // // console.log("example ---", example);
-    // console.log("content file ---", dataFile, dataFile[0].contentFile);
-    // const imgData = await uploadImageToClound(
-    //   data?.fileImgs!![0].contentFile
-    // );
-    // console.log("img result ---", imgData);
-    return;
-    const food = await Food.create(data);
-    console.log("food ---", food);
-    return JSON.stringify(food);
+    connectToDb();
+    console.log("id --", id)
+    const foodDetails = await Food.findById({ _id: id });
+    return foodDetails;
   } catch (error) {
-    // console.log("error --", error)
+    console.log("error --", error)
     return { error: "Something went wrong" };
   }
-};
-
-const uploadImageToClound = async (file: any) => {
-  // const file = files
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-
-  await new Promise((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream(
-        {
-          tags: ["foods-upload"],
-          upload_preset: "foods-upload",
-        },
-        function (error, result) {
-          if (error) {
-            reject(error);
-            return;
-          }
-          resolve(result);
-        }
-      )
-      .end(buffer);
-  });
 };

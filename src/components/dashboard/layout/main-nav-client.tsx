@@ -68,7 +68,6 @@ export function MainNavClient() {
   };
 
   const handleClickItem = (page: { id: number; title: string }) => {
-    console.log("click ----", page);
     switch (page.id) {
       case 1:
         return router.push("/list_food");

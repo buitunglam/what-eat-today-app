@@ -28,7 +28,6 @@ import { authClient } from "@/lib/auth/client";
 import { useUser } from "@/hooks/use-user";
 
 import { v4 as uuidv4 } from "uuid";
-import { createFood } from "@/lib/action/food";
 import { createFoodApi } from "@/service/food.api";
 import { Snackbar, SnackbarCloseReason, SnackbarOrigin } from "@mui/material";
 
@@ -93,6 +92,7 @@ const page = () => {
       console.log(data);
       if (data) {
         showNoti();
+        router.push("/list_food");
       }
       // router.refresh();
     } catch (error) {
@@ -221,9 +221,6 @@ const page = () => {
             </Box>
             <Button disabled={isPending} type="submit" variant="contained">
               Create Food
-            </Button>
-            <Button onClick={() => showNoti()} variant="contained">
-              Test noti
             </Button>
             {errors.root ? (
               <Alert color="error">{errors.root.message}</Alert>

@@ -3,88 +3,18 @@
 import React, { Fragment, useRef, useState } from "react";
 import { LuckyWheel } from "@lucky-canvas/react";
 import ResultWheelLucky from "./ResultWheelLucky";
-type PageProps = {};
+type PageProps = {
+  listFoodForReels: any;
+};
 
-const LotteryDom: React.FC<PageProps> = () => {
+const LotteryDom: React.FC<PageProps> = (props: PageProps) => {
+  console.log("props --", props);
   const [timeDuration, setTimeDuration] = useState(10);
   const myLuckyRef = useRef();
   const [item, setItem] = useState("");
   const [dataSource, setDataSource] = useState<any>({
     blocks: [{ padding: "13px", background: "#d64737" }],
-    prizes: [
-      {
-        title: "Thịt luộc",
-        background: "#f8d384",
-        fonts: [{ text: "Thịt luộc", top: "18%" }],
-      },
-      {
-        title: "Nem rán",
-        background: "#f9e3bb",
-        fonts: [{ text: "Nem rán", top: "18%" }],
-      },
-      {
-        title: "Bún chả",
-        background: "#f8d384",
-        fonts: [{ text: "Bún chả", top: "18%" }],
-      },
-      {
-        title: "Chả lá nốt",
-        background: "#f9e3bb",
-        fonts: [{ text: "Chả lá nốt", top: "18%" }],
-      },
-      {
-        title: "Thịt kho trứng",
-        background: "#f8d384",
-        fonts: [{ text: "Thịt kho trứng", top: "18%" }],
-      },
-      {
-        title: "Lạc rang, thịt nướng",
-        background: "#f9e3bb",
-        fonts: [{ text: "Lạc rang, thịt nướng", top: "18%" }],
-      },
-      {
-        title: "Thịt bò hầm",
-        background: "#f8d384",
-        fonts: [{ text: "Thịt bò hầm", top: "18%" }],
-      },
-      {
-        title: "Thịt bò xào (nấm hoặc su su hoặc ớt chuông)",
-        background: "#f9e3bb",
-        fonts: [
-          { text: "Thịt bò xào (nấm hoặc su su hoặc ớt chuông)", top: "18%" },
-        ],
-      },
-      {
-        title: "Cá rán",
-        background: "#f8d384",
-        fonts: [{ text: "Cá rán", top: "18%" }],
-      },
-      {
-        title: "Hàu rán trứng",
-        background: "#f9e3bb",
-        fonts: [{ text: "Hàu rán trứng", top: "18%" }],
-      },
-      {
-        title: "Trứng đúc thịt",
-        background: "#f8d384",
-        fonts: [{ text: "Trứng đúc thịt", top: "18%" }],
-      },
-      {
-        title: "Sườn xào chua ngọt",
-        background: "#f9e3bb",
-        fonts: [{ text: "Sườn xào chua ngọt", top: "18%" }],
-      },
-      {
-        title: "Đậu nhồi thịt",
-        background: "#f8d384",
-        fonts: [{ text: "Đậu nhồi thịt", top: "18%" }],
-      },
-      {
-        title: "Đậu sốt cà chua",
-        background: "#f9e3bb",
-        fonts: [{ text: "Đậu sốt cà chua", top: "18%" }],
-      },
-    ],
+    prizes: JSON.parse(props.listFoodForReels),
     buttons: [
       { radius: "50px", background: "#d64737" },
       { radius: "45px", background: "#fff" },
@@ -102,7 +32,6 @@ const LotteryDom: React.FC<PageProps> = () => {
   });
   return (
     <>
-      {/* <h2>{!item ? "Quay nào..." : `Chúc mừng bạn đã trúng: ${item}`}</h2> */}
       <div className="flex justify-around items-center p-[20px] max-md:pt-[20px] max-md:p-0 max-md:flex-col">
         <LuckyWheel
           ref={myLuckyRef}
@@ -128,7 +57,8 @@ const LotteryDom: React.FC<PageProps> = () => {
           }}
           onEnd={(prize) => {
             console.log(prize);
-            setItem(prize.title as string);
+            // setItem(prize.title as string);
+            setItem(prize);
           }}
         />
         <ResultWheelLucky item={item} />

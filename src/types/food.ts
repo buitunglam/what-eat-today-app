@@ -1,4 +1,5 @@
 export interface FoodType {
+  _id?: string;
   name: string;
   userId: string;
   recipes: string;
