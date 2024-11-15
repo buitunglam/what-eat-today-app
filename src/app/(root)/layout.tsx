@@ -16,7 +16,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    // <AuthGuard>
+    <AuthGuard>
     <>
       {/* <GlobalStyles
         styles={{
@@ -60,6 +60,6 @@ export default function Layout({ children }: LayoutProps) {
       </Container>
     </>
 
-    //</AuthGuard>
+    </AuthGuard>
   );
 }

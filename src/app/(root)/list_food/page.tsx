@@ -17,13 +17,11 @@ const page = () => {
 
   const getListFood = async () => {
     try {
-      // const listFoods: any = (await getFoods()) || [];
-      const response: any = await fetch("/api/food", {
-        method: "GET",
-      });
-      const data = await response.json();
-      const listFoods = JSON.parse(data.data);
-      setListFoods(listFoods);
+      const listFoods: any = (await getFoods()) || [];
+
+      // const data = await response.json();
+      // const listFoods = JSON.parse(data.data);
+      setListFoods(JSON.parse(listFoods));
     } catch (error) {
       console.log("error --", error);
     }
@@ -35,7 +33,6 @@ const page = () => {
         <Typography variant="h4" className="fredoka">
           List Foods
         </Typography>
-        {/* <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] h-auto auto-rows-[10px] gap-4 mt-[15px]  "> */}
         <div className="flex items-center flex-wrap gap-5 w-full mt-[30px]">
           {listFoods && listFoods.length > 0
             ? listFoods.map((item: any, index: any) => (

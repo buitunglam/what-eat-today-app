@@ -58,6 +58,7 @@ const LotteryDom: React.FC<PageProps> = (props: PageProps) => {
           onEnd={(prize) => {
             console.log(prize);
             // setItem(prize.title as string);
+            console.log("select item ---", prize)
             setItem(prize);
           }}
         />

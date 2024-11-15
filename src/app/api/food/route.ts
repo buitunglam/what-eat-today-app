@@ -41,18 +41,6 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
-  try {
-    await connectToDb();
-    const listFood = await Food.find({});
-    console.log("listFood ---", listFood);
-    return NextResponse.json({ data: JSON.stringify(listFood) }, { status: 200 });
-  } catch (error) {
-    console.error("Error getlist food:", error);
-    return NextResponse.json({ error: "Error Get food" }, { status: 500 });
-  }
-}
-
 const uploadImageToClound = async (formData: FormData) => {
   const uploadsFolder = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER;
   const files = formData.getAll("images") as File[];

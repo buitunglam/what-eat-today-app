@@ -11,9 +11,9 @@ interface ItemFoodType {
 
 const FoodItem = ({ item }: { item: FoodType }) => {
   const route = useRouter();
-  const { typeImage, imgs, name } = item;
+  const { typeImage, imgs, name, _id } = item;
   const onNavigateToDetails = () => {
-    route.push(`/food/${item._id}`)
+    route.push(`/food/${_id?.toString()}`)
   }
   return (
     <div

@@ -16,7 +16,8 @@ export default async function initTranslations(locale: any, namespaces: any) {
     .use(initReactI18next)
     .use(
       resourcesToBackend((language: any) => {
-        return import(`@/app/locales/${language}/${namespaces}.json`)
+        // return import(`@/app/locales/${language}/${namespaces}.json`)
+        return import(`../../public/locales/${namespaces}.json`)
       })
     )
     .init({

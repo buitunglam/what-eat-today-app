@@ -15,8 +15,8 @@ export const getFoods = async () => {
   try {
     connectToDb();
     const foods = await Food.find({});
-    console.log("foods ---", foods);
-    return foods;
+    // console.log("foods ---", foods);
+    return JSON.stringify(foods);
   } catch (error) {
     // console.log("error --", error)
     return { error: "Something went wrong" };
@@ -26,11 +26,11 @@ export const getFoods = async () => {
 export const getFoodDetails = async (id: string) => {
   try {
     connectToDb();
-    console.log("id --", id)
+    console.log("id --", id);
     const foodDetails = await Food.findById({ _id: id });
     return foodDetails;
   } catch (error) {
-    console.log("error --", error)
+    console.log("error --", error);
     return { error: "Something went wrong" };
   }
 };
